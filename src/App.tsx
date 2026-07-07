@@ -27,6 +27,7 @@ import IaChat from './components/IaChat';
 import Conquistas from './components/Conquistas';
 import Configuracoes from './components/Configuracoes';
 import PacientesList from './components/PacientesList';
+import AdminDashboard from './components/AdminDashboard';
 
 import { 
   Heart, Sun, Compass, ClipboardList, Milestone, Calendar,
@@ -550,6 +551,10 @@ ${anamneseContext}`;
     { id: 'configuracoes', label: 'Configurações', icon: <Settings className="w-4 h-4" /> }
   ];
 
+  if (firebaseUser?.email === 'nogueiralfha@gmail.com') {
+    menuItems.push({ id: 'admin', label: 'Painel Admin', icon: <ShieldCheck className="w-4 h-4 text-amber-500 font-bold" /> });
+  }
+
   const handleNavigate = (sec: string) => {
     setActiveSection(sec);
     setMobileMenuOpen(false);
@@ -679,7 +684,11 @@ ${anamneseContext}`;
               />
             )}
 
-            {activeSection !== 'pacientes' && activeSection !== 'configuracoes' && !selectedPatientId && (
+            {activeSection === 'admin' && firebaseUser?.email === 'nogueiralfha@gmail.com' && (
+              <AdminDashboard />
+            )}
+
+            {activeSection !== 'pacientes' && activeSection !== 'configuracoes' && activeSection !== 'admin' && !selectedPatientId && (
               <div className="max-w-md mx-auto text-center py-16 bg-white border border-[#EBEBE3] rounded-3xl p-8 shadow-sm my-12">
                 <Users className="w-12 h-12 text-[#1E3F35] mx-auto mb-4" />
                 <h2 className="text-xl font-serif font-bold text-[#121214]">Nenhum Paciente Selecionado</h2>

@@ -198,38 +198,38 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-[#EBEBE3] relative"
+              className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-gray-200 dark:border-gray-800 relative"
             >
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-[#889B8C] hover:text-[#121214] p-1 rounded-full hover:bg-gray-100 transition-all"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-950 dark:hover:text-white p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <h2 className="text-2xl font-serif text-[#121214] font-bold mb-6">Cadastrar Novo Paciente</h2>
+              <h2 className="text-2xl font-serif text-gray-900 dark:text-white font-bold mb-6">Cadastrar Novo Paciente</h2>
               
               <form onSubmit={handleCreatePatient} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#889B8C] uppercase tracking-wider mb-2">Nome Completo</label>
+                  <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Nome Completo</label>
                   <input 
                     type="text" 
                     required 
                     value={newName} 
                     onChange={(e) => setNewName(e.target.value)} 
                     placeholder="Nome do paciente"
-                    className="w-full bg-[#F5F4EE] border border-[#EBEBE3] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3F35]/30 focus:border-[#1E3F35] transition-all text-[#121214]"
+                    className="w-full bg-white text-gray-900 border border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3F35]/30 focus:border-[#1E3F35] transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#889B8C] uppercase tracking-wider mb-2">E-mail</label>
+                  <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">E-mail</label>
                   <input 
                     type="email" 
                     value={newEmail} 
                     onChange={(e) => setNewEmail(e.target.value)} 
                     placeholder="paciente@email.com"
-                    className="w-full bg-[#F5F4EE] border border-[#EBEBE3] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3F35]/30 focus:border-[#1E3F35] transition-all text-[#121214]"
+                    className="w-full bg-white text-gray-900 border border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1E3F35]/30 focus:border-[#1E3F35] transition-all"
                   />
                 </div>
 

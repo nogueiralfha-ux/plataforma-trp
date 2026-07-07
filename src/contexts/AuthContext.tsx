@@ -26,34 +26,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      
-      if (currentUser) {
-        const docRef = doc(db, 'therapists', currentUser.uid);
-        const docSnap = await getDoc(docRef);
+      try {
+        setUser(currentUser);
         
-        if (docSnap.exists()) {
-          setProfile(docSnap.data() as TherapistProfile);
-        } else {
-          // Initialize profile on first login (optional, if they register through another way we do it there)
-          const newProfile = {
-            name: currentUser.displayName || 'Terapeuta',
-            email: currentUser.email || '',
-            subscriptionStatus: 'trial' as const,
-            createdAt: serverTimestamp()
-          };
-          try {
-            await setDoc(docRef, newProfile);
-            setProfile(newProfile as any); // Ignoring strict typing for state set
-          } catch(e) {
-            console.error("Failed to create profile", e);
+        if (currentUser) {
+          const docRef = doc(db, 'therapists', currentUser.uid);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            setProfile(docSnap.data() as TherapistProfile);
+          } else {
+            // Initialize profile on first login (optional, if they register through another way we do it there)
+            const newProfile = {
+              name: currentUser.displayName || 'Terapeuta',
+              email: currentUser.email || '',
+              subscriptionStatus: 'trial' as const,
+              createdAt: serverTimestamp()
+            };
+            try {
+              await setDoc(docRef, newProfile);
+              setProfile(newProfile as any); // Ignoring strict typing for state set
+            } catch(e) {
+              console.error("Failed to create profile", e);
+            }
           }
+        } else {
+          setProfile(null);
         }
-      } else {
-        setProfile(null);
+      } catch (err) {
+        console.error("Erro ao carregar perfil do terapeuta:", err);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     });
 
     return unsubscribe;

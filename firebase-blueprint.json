@@ -1,0 +1,79 @@
+{
+  "collections": {
+    "therapists": {
+      "description": "Stores therapist profiles (SaaS customers)",
+      "document": {
+        "email": {
+          "type": "string",
+          "description": "Therapist's email address",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Therapist's full name",
+          "required": true
+        },
+        "subscriptionStatus": {
+          "type": "string",
+          "description": "Current status: trial, active, inactive",
+          "required": true
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Creation timestamp",
+          "required": true
+        }
+      }
+    },
+    "patients": {
+      "description": "Stores patients belonging to a therapist",
+      "document": {
+        "therapistId": {
+          "type": "string",
+          "description": "Reference to the therapist who owns this patient record",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Patient's name",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "description": "Patient's email address (optional)",
+          "required": false
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Creation timestamp",
+          "required": true
+        }
+      }
+    },
+    "anamneses": {
+      "description": "Stores anamnese records for patients",
+      "document": {
+        "therapistId": {
+          "type": "string",
+          "description": "Reference to the therapist who owns this record",
+          "required": true
+        },
+        "patientId": {
+          "type": "string",
+          "description": "Reference to the patient this record belongs to",
+          "required": true
+        },
+        "data": {
+          "type": "map",
+          "description": "The anamnese data",
+          "required": true
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "Creation timestamp",
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", Georgia, Cambria, serif;
+}
+
+/* Sophisticated Dark Global Styles */
+body {
+  background-color: #0C0C0E !important;
+  color: #E0E0E0 !important;
+}
+
+/* Background Color Class Overrides */
+.bg-\[\#F5F4EE\], 
+[class*="bg-[#F5F4EE]"],
+.bg-gray-100 {
+  background-color: #0C0C0E !important;
+}
+
+.bg-white, 
+[class*="bg-white"],
+.bg-gray-50 {
+  background-color: #121214 !important;
+}
+
+.bg-\[\#FAFBF9\], 
+[class*="bg-[#FAFBF9]"],
+.bg-\[\#FBFBFA\], 
+[class*="bg-[#FBFBFA]"] {
+  background-color: #1C1C20 !important;
+}
+
+/* Highlight Accents & Primary Buttons mapping to Elegant Gold/Bronze */
+.bg-\[\#1E3F35\], 
+[class*="bg-[#1E3F35]"] {
+  background-color: #B89650 !important;
+  color: #121214 !important;
+}
+
+/* Ensure that child icons in primary gold buttons are dark */
+.bg-\[\#1E3F35\] svg, 
+[class*="bg-[#1E3F35]"] svg,
+.bg-\[\#1E3F35\] span,
+[class*="bg-[#1E3F35]"] span {
+  stroke: #121214 !important;
+  color: #121214 !important;
+}
+
+/* Hover effects for primary gold buttons */
+.hover\:bg-\[\#152D26\]:hover, 
+[class*="hover:bg-[#152D26]"]:hover,
+.bg-\[\#1E3F35\]:hover,
+[class*="bg-[#1E3F35]"]:hover {
+  background-color: #9A7D3E !important;
+  color: #121214 !important;
+}
+
+/* Light gold/bronze badges & tags */
+.bg-\[\#1E3F35\]\/5, 
+[class*="bg-[#1E3F35]/5"],
+.bg-\[\#1E3F35\]\/10,
+[class*="bg-[#1E3F35]/10"],
+.bg-[#1E3F35]\/15 {
+  background-color: rgba(184, 150, 80, 0.12) !important;
+  color: #B89650 !important;
+  border-color: rgba(184, 150, 80, 0.2) !important;
+}
+
+/* Secondary/Muted text and elements */
+.text-\[\#2C3B30\], 
+[class*="text-[#2C3B30]"] {
+  color: #E0E0E0 !important;
+}
+
+.text-\[\#1E3F35\], 
+[class*="text-[#1E3F35]"] {
+  color: #B89650 !important;
+}
+
+.text-\[\#607062\], 
+[class*="text-[#607062]"] {
+  color: #8E8E93 !important;
+}
+
+.text-\[\#889B8C\], 
+[class*="text-[#889B8C]"] {
+  color: #66666E !important;
+}
+
+/* Border overrides */
+.border-\[\#EBEBE3\], 
+[class*="border-[#EBEBE3]"],
+.border-\[\#E2E2D9\], 
+[class*="border-[#E2E2D9]"],
+.border-\[\#F0F0E9\], 
+[class*="border-[#F0F0E9]"] {
+  border-color: #1F1F23 !important;
+}
+
+/* Interactive elements & Lists */
+.hover\:bg-\[\#F5F4EE\]:hover, 
+[class*="hover:bg-[#F5F4EE]"]:hover {
+  background-color: #1C1C20 !important;
+}
+
+.hover\:bg-\[\#EBEBE3\]:hover, 
+[class*="hover:bg-[#EBEBE3]"]:hover {
+  background-color: #2A2A2E !important;
+}
+
+/* Custom scrollbars inside the dark environment */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F1F23;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B89650;
+}
+
+/* Specific elements like active nav buttons */
+button.bg-\[\#1E3F35\].text-white {
+  background-color: #B89650 !important;
+  color: #121214 !important;
+}
+
+button.bg-\[\#1E3F35\].text-white svg {
+  stroke: #121214 !important;
+}
+
+/* Modal overlays */
+.bg-black\/40 {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Green feedback boxes to match dark gold/bronze or subtle dark green */
+.bg-emerald-50, .bg-emerald-50\/15 {
+  background-color: rgba(184, 150, 80, 0.08) !important;
+  border-color: rgba(184, 150, 80, 0.2) !important;
+  color: #B89650 !important;
+}
+
+.text-emerald-800, .text-emerald-700 {
+  color: #B89650 !important;
+}
+
+/* Decorative background blur shapes in login */
+.bg-\[\#E5E9DF\], .bg-\[\#DFE6D5\] {
+  background-color: rgba(184, 150, 80, 0.05) !important;
+}
+
+/* Purple supplements indicators mapping */
+.text-\[\#8E44AD\], [class*="text-[#8E44AD]"] {
+  color: #C084FC !important;
+}
+.bg-\[\#8E44AD\]\/5, [class*="bg-[#8E44AD]/5"] {
+  background-color: rgba(192, 132, 252, 0.12) !important;
+  color: #C084FC !important;
+  border-color: rgba(192, 132, 252, 0.2) !important;
+}
+.bg-\[\#8E44AD\]\/10, [class*="bg-[#8E44AD]/10"] {
+  background-color: rgba(192, 132, 252, 0.15) !important;
+}
+svg circle[stroke="#8E44AD"] {
+  stroke: #C084FC !important;
+}
+
+/* Circular progress ring SVGs overrides */
+svg circle[stroke="#F5F4EE"] {
+  stroke: #1C1C20 !important;
+}
+svg circle[stroke="#1E3F35"] {
+  stroke: #B89650 !important;
+}
+
+/* Mini status widgets cards colored backgrounds overrides */
+.bg-indigo-50 {
+  background-color: #1A1B35 !important;
+  border-color: #2A2B4A !important;
+}
+.text-indigo-500 {
+  color: #818CF8 !important;
+}
+.bg-indigo-50\/10 {
+  background-color: rgba(129, 140, 248, 0.1) !important;
+}
+
+.bg-blue-50 {
+  background-color: #132238 !important;
+  border-color: #1E355C !important;
+}
+.text-blue-500 {
+  color: #60A5FA !important;
+}
+.bg-blue-50\/10 {
+  background-color: rgba(96, 165, 250, 0.1) !important;
+}
+
+.bg-emerald-50 {
+  background-color: #102A1E !important;
+  border-color: #1A4D33 !important;
+}
+.text-emerald-500 {
+  color: #34D399 !important;
+}
+
+.bg-amber-50 {
+  background-color: #2C2013 !important;
+  border-color: #4B3621 !important;
+}
+.text-amber-500 {
+  color: #FBBF24 !important;
+}
+
+/* Navigation items hover & state fixes */
+#left-sidebar {
+  background-color: #121214 !important;
+  border-color: #1F1F23 !important;
+}
+#left-sidebar button:hover {
+  background-color: #1C1C20 !important;
+  color: #B89650 !important;
+}
+#left-sidebar button.bg-\[\#1E3F35\] {
+  background-color: #B89650 !important;
+  color: #121214 !important;
+}
+#left-sidebar button.bg-\[\#1E3F35\] span,
+#left-sidebar button.bg-\[\#1E3F35\] svg {
+  color: #121214 !important;
+  stroke: #121214 !important;
+}

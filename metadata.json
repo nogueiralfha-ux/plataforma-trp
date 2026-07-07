@@ -1,0 +1,6 @@
+{
+  "name": "TRP - Recuperação Terapêutica",
+  "description": "Uma plataforma completa para gestão de protocolos terapêuticos de recuperação (Física, Mental e Espiritual) integrando check-ins diários, anamnese, cronograma de suplementos, diário emocional e assistente de IA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

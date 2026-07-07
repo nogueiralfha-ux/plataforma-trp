@@ -1,0 +1,48 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(therapistId) {
+      return isAuthenticated() && request.auth.uid == therapistId;
+    }
+
+    match /therapists/{therapistId} {
+      allow read: if isOwner(therapistId);
+      allow create: if isOwner(therapistId) &&
+        request.resource.data.keys().hasAll(['email', 'name', 'subscriptionStatus', 'createdAt']) &&
+        request.resource.data.subscriptionStatus in ['trial', 'active', 'inactive'];
+      allow update: if isOwner(therapistId) &&
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['subscriptionStatus', 'createdAt']));
+      allow delete: if false; // Only soft delete or admin delete
+    }
+
+    match /patients/{patientId} {
+      allow read: if isAuthenticated() && resource.data.therapistId == request.auth.uid;
+      allow create: if isAuthenticated() &&
+        request.resource.data.therapistId == request.auth.uid &&
+        request.resource.data.keys().hasAll(['therapistId', 'name', 'createdAt']);
+      allow update: if isAuthenticated() &&
+        resource.data.therapistId == request.auth.uid &&
+        request.resource.data.therapistId == request.auth.uid &&
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['therapistId', 'createdAt']));
+      allow delete: if isAuthenticated() && resource.data.therapistId == request.auth.uid;
+    }
+
+    match /anamneses/{anamneseId} {
+      allow read: if isAuthenticated() && resource.data.therapistId == request.auth.uid;
+      allow create: if isAuthenticated() &&
+        request.resource.data.therapistId == request.auth.uid &&
+        request.resource.data.keys().hasAll(['therapistId', 'patientId', 'data', 'createdAt']);
+      allow update: if isAuthenticated() &&
+        resource.data.therapistId == request.auth.uid &&
+        request.resource.data.therapistId == request.auth.uid &&
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['therapistId', 'patientId', 'createdAt']));
+      allow delete: if isAuthenticated() && resource.data.therapistId == request.auth.uid;
+    }
+  }
+}

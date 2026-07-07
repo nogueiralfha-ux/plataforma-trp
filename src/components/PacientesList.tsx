@@ -25,6 +25,7 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
   const [newEmail, setNewEmail] = useState('');
   const [newAvatar, setNewAvatar] = useState('🧘');
   const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const avatars = ['🧘', '🍃', '🌸', '☀️', '🧠', '💧', '🌿', '🦁'];
 
@@ -67,6 +68,7 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
     if (!firebaseUser || !newName) return;
 
     setFormSubmitting(true);
+    setFormError(null);
     try {
       await addDoc(collection(db, 'patients'), {
         therapistId: firebaseUser.uid,
@@ -83,8 +85,9 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
       setNewEmail('');
       setNewAvatar('🧘');
       fetchPatients();
-    } catch (e) {
+    } catch (e: any) {
       console.error("Erro ao cadastrar paciente:", e);
+      setFormError(e.message || "Erro desconhecido ao salvar no Firestore.");
     } finally {
       setFormSubmitting(false);
     }
@@ -208,6 +211,12 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
               </button>
 
               <h2 className="text-2xl font-serif text-gray-900 dark:text-white font-bold mb-6">Cadastrar Novo Paciente</h2>
+              
+              {formError && (
+                <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30 rounded-xl text-red-600 dark:text-red-400 text-xs text-center">
+                  {formError}
+                </div>
+              )}
               
               <form onSubmit={handleCreatePatient} className="space-y-4">
                 <div>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Users, Plus, UserCircle, Activity, Calendar, Loader2, X } from 'lucide-react';
+import { Users, Plus, UserCircle, Activity, Calendar, Loader2, X, Trash2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../lib/firebase';
-import { collection, query, where, getDocs, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, serverTimestamp, deleteDoc, doc } from 'firebase/firestore';
 
 interface Patient {
   id: string;
@@ -80,6 +80,19 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
   useEffect(() => {
     fetchPatients();
   }, [firebaseUser]);
+
+  const handleDeletePatient = async (id: string) => {
+    if (!window.confirm("Tem certeza de que deseja excluir este paciente e todo o seu prontuário? Esta ação não pode ser desfeita.")) return;
+    try {
+      setLoading(true);
+      await withTimeout(deleteDoc(doc(db, 'patients', id)));
+      fetchPatients();
+    } catch (e: any) {
+      alert("Erro ao excluir paciente: " + (e.message || "Erro de conexão."));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCreatePatient = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -205,6 +218,13 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
                     className="px-4 py-2 text-sm font-semibold text-[#1E3F35] bg-[#1E3F35]/10 hover:bg-[#1E3F35]/20 rounded-lg transition-colors cursor-pointer"
                   >
                     Abrir Prontuário
+                  </button>
+                  <button
+                    onClick={() => handleDeletePatient(patient.id)}
+                    className="p-2 text-red-600 hover:bg-red-55/10 hover:text-red-700 rounded-lg transition-colors cursor-pointer"
+                    title="Excluir Paciente"
+                  >
+                    <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
               </div>

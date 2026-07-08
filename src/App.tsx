@@ -32,7 +32,7 @@ import AdminDashboard from './components/AdminDashboard';
 import { 
   Heart, Sun, Compass, ClipboardList, Milestone, Calendar,
   Dumbbell, Feather, Apple, Pill, BookOpen, Sparkles, Award, 
-  Settings, LogOut, Menu, X, UserCheck, Users, Loader2
+  Settings, LogOut, Menu, X, UserCheck, Users, Loader2, ShieldCheck
 } from 'lucide-react';
 
 export default function App() {

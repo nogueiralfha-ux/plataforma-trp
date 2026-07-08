@@ -29,6 +29,15 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
 
   const avatars = ['🧘', '🍃', '🌸', '☀️', '🧠', '💧', '🌿', '🦁'];
 
+  const withTimeout = <T,>(promise: Promise<T>, ms: number = 6000): Promise<T> => {
+    return Promise.race([
+      promise,
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Tempo de conexão esgotado (Timeout). Verifique se você configurou as suas chaves do Firebase no Render e se o Cloud Firestore está ativado no seu Console do Firebase.")), ms)
+      )
+    ]);
+  };
+
   const fetchPatients = async () => {
     if (!firebaseUser) return;
     try {
@@ -38,7 +47,7 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
         where('therapistId', '==', firebaseUser.uid),
         orderBy('createdAt', 'desc')
       );
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await withTimeout(getDocs(q));
       const list: Patient[] = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -52,7 +61,7 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
         });
       });
       setPatients(list);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Erro ao buscar pacientes:", e);
     } finally {
       setLoading(false);
@@ -70,15 +79,17 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
     setFormSubmitting(true);
     setFormError(null);
     try {
-      await addDoc(collection(db, 'patients'), {
-        therapistId: firebaseUser.uid,
-        name: newName,
-        email: newEmail,
-        avatar: newAvatar,
-        status: 'Ativo',
-        lastSeen: 'Agora mesmo',
-        createdAt: serverTimestamp()
-      });
+      await withTimeout(
+        addDoc(collection(db, 'patients'), {
+          therapistId: firebaseUser.uid,
+          name: newName,
+          email: newEmail,
+          avatar: newAvatar,
+          status: 'Ativo',
+          lastSeen: 'Agora mesmo',
+          createdAt: serverTimestamp()
+        })
+      );
       
       setIsModalOpen(false);
       setNewName('');

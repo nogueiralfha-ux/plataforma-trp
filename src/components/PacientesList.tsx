@@ -12,6 +12,7 @@ interface Patient {
   avatar: string;
   status: string;
   lastSeen?: string;
+  createdAt?: any;
 }
 
 export default function PacientesList({ onSelectPatient }: { onSelectPatient: (id: string) => void }) {
@@ -44,8 +45,7 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
       setLoading(true);
       const q = query(
         collection(db, 'patients'),
-        where('therapistId', '==', firebaseUser.uid),
-        orderBy('createdAt', 'desc')
+        where('therapistId', '==', firebaseUser.uid)
       );
       const querySnapshot = await withTimeout(getDocs(q));
       const list: Patient[] = [];
@@ -57,9 +57,18 @@ export default function PacientesList({ onSelectPatient }: { onSelectPatient: (i
           email: data.email || '',
           avatar: data.avatar || '🧘',
           status: data.status || 'Ativo',
-          lastSeen: data.lastSeen || 'Recém criado'
+          lastSeen: data.lastSeen || 'Recém criado',
+          createdAt: data.createdAt
         });
       });
+
+      // Sort in-memory to avoid needing composite index
+      list.sort((a, b) => {
+        const timeA = a.createdAt?.seconds || 0;
+        const timeB = b.createdAt?.seconds || 0;
+        return timeB - timeA;
+      });
+
       setPatients(list);
     } catch (e: any) {
       console.error("Erro ao buscar pacientes:", e);

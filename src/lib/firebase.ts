@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDm27NHxv1NLNClne2uOMmClpW_iCu008",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "studio-9584361568-e5b3b.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "studio-9584361568-e5b3b",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "studio-9584361568-e5b3b.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "522899078689",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:522899078689:web:56fb1e7f92a9693b4ced60"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyA3FA8axVV9aSXY70hiEaXpve8lvBiBO6c",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "plataforma-trp.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "plataforma-trp",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "plataforma-trp.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "999325505617",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:999325505617:web:b269a21a87126f7889c070"
 };
 
 const app = initializeApp(firebaseConfig);
